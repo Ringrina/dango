@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flutterアプリ開発</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #1a73e8;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .language-selector {
+            color: white;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .language-selector:hover {
+            border-color: white;
+        }
+
+        .language-selector option {
+            background: white;
+            color: #333;
+        }
+
+        .request-button {
+            color: white;
+            background: #ff6b6b;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .request-button:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            margin-top: 60px;
+            background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
+            padding: 8rem 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #ff6b6b;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .hero .cta-button:hover {
+            transform: translateY(-2px);
+            background: #ff5252;
+        }
+
+        .services {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1a73e8;
+        }
+
+        .strengths {
+            background: #f8f9fa;
+            padding: 5rem 2rem;
+        }
+
+        .strengths-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .strength-item {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .strength-item img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+        }
+
+        .strength-item h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .footer {
+            background-color: #1a73e8;  /* フッターの青色背景 */
+            width: 100%;
+            padding: 20px 0;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-image {
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            font-family: ;
+        }
+
+        .copyright {
+            color: white;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .header-right {
+                gap: 0.75rem;
+            }
+
+            .language-selector {
+                padding: 0.4rem;
+                font-size: 0.9rem;
+            }
+
+            .request-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero {
+                padding: 6rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero h2 {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .services-grid, .strengths-grid {
+                grid-template-columns: 1fr;
+            }
+
+            
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo">Flutterアプリ開発</a>
+        <div class="header-right">
+            <select class="language-selector">
+                <option value="ja">日本語</option>
+                <option value="en">English</option>
+                <option value="zh">中文</option>
+            </select>
+            <a href="#contact" class="request-button">資料請求はこちら</a>
+        </div>
+    </header>
+
+    <section class="hero" data-aos="fade-up">
+        <h1>最新技術で実現する、次世代のアプリ開発</h1>
+        <h2>iOS・Android両対応で開発コストを40%削減</h2>
+        <a href="#contact" class="cta-button">無料相談・見積もりはこちら</a>
+    </section>
+
+    <section class="services">
+        <h2 class="section-title" data-aos="fade-up">サービス概要</h2>
+        <div class="services-grid">
+            <div class="service-card" data-aos="fade-up">
+                <img src="/api/placeholder/400/300" alt="UI/UXデザイン">
+                <h3>UI/UXデザイン</h3>
+                <p>美しく使いやすいインターフェースを設計し、ユーザー体験を最適化します。Figmaを活用した最新のデザインワークフローで、スムーズな開発を実現します。</p>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <img src="/api/placeholder/400/300" alt="アプリの保守と更新">
+                <h3>アプリの保守と更新</h3>
+                <p>リリース後もアプリのパフォーマンスを維持し、新機能の追加や更新を行います。継続的な品質向上とユーザー満足度の維持を実現します。</p>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                <img src="/api/placeholder/400/300" alt="クロスプラットフォーム">
+                <h3>クロスプラットフォーム</h3>
+                <p>1つのコードベースでiOSとAndroid両方に対応するアプリを開発します。効率的な開発プロセスで、コストと時間を大幅に削減します。</p>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                <img src="/api/placeholder/400/300" alt="カスタムアプリ開発">
+                <h3>カスタムアプリ開発</h3>
+                <p>あなたのビジネスニーズに合わせた、独自のFlutterアプリケーションを開発します。要件定義から運用まで、トータルでサポートします。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="strengths">
+        <h2 class="section-title" data-aos="fade-up">Flutter開発の強み</h2>
+        <div class="strengths-grid">
+            <div class="strength-item" data-aos="fade-up">
+                <img src="/api/placeholder/80/80" alt="コミュニティサポート">
+                <h3>大規模なコミュニティサポート</h3>
+                <p>豊富なリソースと継続的なアップデートにより、安定した開発環境を提供します。</p>
+            </div>
+            <div class="strength-item" data-aos="fade-up" data-aos-delay="100">
+                <img src="/api/placeholder/80/80" alt="クロスプラットフォーム">
+                <h3>デュアルプラットフォーム対応</h3>
+                <p>単一コードでiOS/Android両対応を実現し、開発効率を最大化します。</p>
+            </div>
+            <div class="strength-item" data-aos="fade-up" data-aos-delay="200">
+                <img src="/api/placeholder/80/80" alt="迅速な開発">
+                <h3>迅速な開発と市場投入</h3>
+                <p>効率的な開発プロセスにより、短期間での市場投入を実現します。</p>
+            </div>
+            <div class="strength-item" data-aos="fade-up" data-aos-delay="300">
+                <img src="/api/placeholder/80/80" alt="使いやすさ">
+                <h3>優れたユーザー体験</h3>
+                <p>美しく、高性能なユーザーインターフェースで、満足度の高いアプリを提供します。</p>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+    </script>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- ロゴ部分 -->
+            <div class="logo-container">
+                <!-- img src="path-to-your-logo.png" alt="FILMINGO" class="logo-image" -->
+                <span class="logo-text">FILMINGO</span>
+            </div>
+            <!-- コピーライト部分 -->
+            <div class="copyright">
+                Copyright © 2021 Company name
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
